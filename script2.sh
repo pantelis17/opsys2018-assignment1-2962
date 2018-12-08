@@ -1,11 +1,11 @@
-if [ ! -d "gitFiles" ]; then
-	mkdir gitFiles
+if [ ! -d "gitFilesTemp12345" ]; then
+	mkdir gitFilesTemp12345
 else 
-	rm -rf gitFiles
-	mkdir gitFiles
+	rm -rf gitFilesTemp12345
+	mkdir gitFilesTemp12345
 fi
-tar -xzvf $1 -C gitFiles > /dev/null
-cd gitFiles
+tar -xzvf $1 -C gitFilesTemp12345 > /dev/null
+cd gitFilesTemp12345
 t1=$1
 t1=${t1%".tar.gz"}
 touch "files".txt
@@ -58,15 +58,10 @@ while read i;
 do
 	cd $i
 	echo "$i :"
-#	d=$(find -type d | wc -l)	
-#	tx=$(find -type f -name "*.txt" | wc -l)
-#	f=$(find -type f | wc -l)
-#	struct=$(find)
-
-d=$(find . -not -path '*/\.*' -type d | wc -l)
-tx=$(find . -not -path '*/\.*' -type f -name "*.txt" | wc -l)
-f=$(find . -not -path '*/\.*' -type f | wc -l)
-struct=$(find . -not -path '*/\.*')
+	d=$(find . -not -path '*/\.*' -type d | wc -l)
+	tx=$(find . -not -path '*/\.*' -type f -name "*.txt" | wc -l)
+	f=$(find . -not -path '*/\.*' -type f | wc -l)
+	struct=$(find . -not -path '*/\.*')
 	echo "Number of directories: $(($d-1))"; 
      	echo "Number of txt files : $tx"
 	echo "Number of other files : $(($f-$tx))"       
@@ -84,4 +79,4 @@ struct=$(find . -not -path '*/\.*')
 done < "repo_names".txt
 cd ..
 cd ..
-#rm -rf gitFiles
+rm -rf gitFilesTemp12345
